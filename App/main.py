@@ -8,13 +8,66 @@ from kivy.config import Config
 Config.set('graphics', 'width', '600')
 
 from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.spinner import Spinner
+from kivy.uix.switch import Switch
+from kivy.uix.popup import Popup
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.dropdown import DropDown
+from kivy.uix.textinput import TextInput
+from kivy.properties import ObjectProperty
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen, ScreenManager
+
+
+class MySwitch(Switch):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.bind(active=self.hi)
+
+    def hi(self, _, state):
+        Connect.ping()
 
 class Home(Screen):
     pass
 
 class Menu(Screen):
+    def go_to_programar(self):
+        self.manager.current = "programar"
+        self.manager.transition.direction = "left"
+
+    def go_to_historico(self):
+        self.manager.current = "historico"
+        self.manager.transition.direction = "left"
+
+    def go_to_configuracion(self):
+        self.manager.current = "configuracion"
+        self.manager.transition.direction = "left"
+
+class Programar(Screen):
+    start_hour_spinner = ObjectProperty(None)
+    start_minute_spinner = ObjectProperty(None)
+    end_hour_spinner = ObjectProperty(None)
+    end_minute_spinner = ObjectProperty(None)
+
+    def save_schedule(self):
+        start_hour = self.start_hour_spinner.text
+        start_minute = self.start_minute_spinner.text
+        end_hour = self.end_hour_spinner.text
+        end_minute = self.end_minute_spinner.text
+
+        popup = Popup(title='Horario Guardado',
+                      content=Label(text=f'Horario de inicio: {start_hour}:{start_minute}\n'
+                                         f'Horario de fin: {end_hour}:{end_minute}'),
+                      size_hint=(None, None), size=(400, 200))
+        popup.open()
+
+class Historico(Screen):
+    pass
+
+class Configuracion(Screen):
     pass
         
 class TabManager(ScreenManager):
@@ -22,11 +75,14 @@ class TabManager(ScreenManager):
 
 kv = Builder.load_file('main.kv')
 
-class Riego(App):
-
+class RiegoApp(App):
     def build(self):
-        return kv
+        sm = ScreenManager()
+        sm.add_widget(Home(name='home'))
+        sm.add_widget(Menu(name='menu'))
+        sm.add_widget(Programar(name='programar'))
+        return sm
 
 if __name__ == '__main__':
-    riegoApp = Riego()
-    riegoApp.run()
+    RiegoApp().run()
+

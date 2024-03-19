@@ -3,7 +3,9 @@
 TabManager:
     Home:
     Menu:
-
+    Programar:
+    Historico:
+    Configuracion:
 
 <TextLabel@Label>:
     color: 1, 1, 1, 1
@@ -116,9 +118,7 @@ TabManager:
                 source: 'images/menu.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-
-            
-            
+   
 
 <Menu>:
     name: "menu"
@@ -142,14 +142,17 @@ TabManager:
                 text: "Programar\nHORARIO de riego"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release: root.go_to_programar()
             Button:
                 text: "Ver\nHISTORICO"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release: root.go_to_historico()
             Button:
                 text: "Configuración\nde la APP"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release: root.go_to_configuracion()
                 
 
     AnchorLayout:
@@ -174,7 +177,63 @@ TabManager:
                 id: return_image
                 source: 'images/return.png'
                 center_x: self.parent.center_x
-                center_y: self.parent.center_y
+                center_y: self.parent.center_y               
 
-                
+<Programar>:
+    start_hour_spinner: start_hour_spinner
+    start_minute_spinner: start_minute_spinner
+    end_hour_spinner: end_hour_spinner
+    end_minute_spinner: end_minute_spinner
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Configurar Horario de Riego'
+        GridLayout:
+            cols: 2
+            Label:
+                text: 'Hora de inicio:'
+            Spinner:
+                id: start_hour_spinner
+                text: '0'
+                values: [str(i) for i in range(25)]
+            Label:
+                text: 'Minuto de inicio:'
+            Spinner:
+                id: start_minute_spinner
+                text: '0'
+                values: [str(i) for i in range(60)]
+            Label:
+                text: 'Hora de fin:'
+            Spinner:
+                id: end_hour_spinner
+                text: '0'
+                values: [str(i) for i in range(25)]
+            Label:
+                text: 'Minuto de fin:'
+            Spinner:
+                id: end_minute_spinner
+                text: '0'
+                values: [str(i) for i in range(60)]
+        Button:
+            text: 'Guardar'
+            on_release: root.save_schedule()
+        Button:
+            text: "Volver"
+            on_release: root.manager.current = "menu"
+
+
+<Historico>:
+    name: "historico"
+    Label:
+        text: "Pantalla de Historial"
+        font_size: 30
+
+<Configuracion>:
+    name: "configuracion"
+    Label:
+        text: "Pantalla de Configuración"
+        font_size: 30
+
+
 
