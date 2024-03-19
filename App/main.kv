@@ -3,6 +3,7 @@
 TabManager:
     Home:
     Menu:
+    Historial:
 
 
 <TextLabel@Label>:
@@ -146,6 +147,13 @@ TabManager:
                 text: "Ver\nHISTORICO"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                
+                on_release:
+                    "burger_image.source = 'images/menu.png'"
+                    app.root.current = "historial"
+                    root.manager.transition.direction = "left"
+
+                    
             Button:
                 text: "Configuración\nde la APP"
                 text_size: self.width - dp(30), None
@@ -176,5 +184,62 @@ TabManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
 
-                
+<Historial>:
+    name: "historial"
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        padding: 30
 
+        canvas.before:
+            Color:
+                rgba: 0.21, 0.21, 0.21, 1  
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    
+        GridLayout:
+            cols: 3
+            size_hint: (1, 0.2)
+            row_default_height: '100dp'
+            row_force_default: True
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1  # Color gris oscuro
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            TextLabel:
+                text: "  Día"
+                font_size: 34
+                bold: True
+            TextLabel:
+                text: "Fecha"
+                font_size: 34
+                bold: True
+            TextLabel:
+                text: "Hora"
+                font_size: 34
+                bold: True
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        padding: 100
+            
+        GridLayout:
+            id: hi
+            cols: 3
+            size_hint: (1, 0.2) 
+            height: self.minimum_height 
+            row_default_height: '60dp' 
+            row_force_default: True
+            padding: "30dp"
+            spacing: "20dp"
+
+            ScrollView:
+                GridLayout:
+                    cols: 3
+                    bold: True
+                    size_hint_y: None
+                    height: self.minimum_height
