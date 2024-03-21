@@ -3,6 +3,7 @@
 TabManager:
     Home:
     Menu:
+    Configuracion:
 
 
 <TextLabel@Label>:
@@ -150,6 +151,7 @@ TabManager:
                 text: "Configuración\nde la APP"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release: app.root.current="Configuracion"
                 
 
     AnchorLayout:
@@ -176,5 +178,38 @@ TabManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
 
-                
+<Configuracion>:
+    name: "Configuracion"
+    
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size_hint: (None, None)
+        size: root.width * 0.8, root.height * 0.8
 
+        GridLayout:
+            size_hint: 0.8, 0.3
+            cols: 1
+            spacing: '20dp'
+
+            Label:
+                text: "Ingresar dirección del servidor"
+                font_size: '20dp'
+
+            TextInput:
+                id: server_address_input
+                hint_text: "Dirección del servidor"
+                font_size: '20dp'
+
+    AnchorLayout:
+        anchor_x: 'right'  # Alineado a la derecha
+        anchor_y: 'bottom'  # Alineado en la parte inferior
+        padding: '30dp'
+
+        Button:
+            text: "Volver"
+            size_hint: None, None
+            size: self.texture_size[0] + 20, self.texture_size[1] + 20
+            on_release:
+                app.root.current = "menu"
+                root.manager.transition.direction = "right"

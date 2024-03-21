@@ -17,6 +17,9 @@ class Home(Screen):
 class Menu(Screen):
     pass
         
+class Configuracion(Screen):
+    pass
+
 class TabManager(ScreenManager):
     pass
 
