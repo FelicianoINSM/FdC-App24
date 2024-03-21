@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(56, 56, 56);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color: rgb(255, 255, 255);
+    font-family: 'Encode Sans';
+    font-size: 6rem;
+    text-align: center;
+    padding-left: 10pt;
+}
+
+.material-symbols-outlined.big {
+    font-size: 8rem;
+}
+
+.material-symbols-outlined.color {
+    color: rgb(111, 255, 111);
+}
+
+span {
+    text-align: center;
+}
