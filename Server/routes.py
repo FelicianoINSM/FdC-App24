@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from flask import request, make_response, jsonify, render_template
+from flask import request, jsonify, render_template
 from datetime import datetime
 
 class Home(MethodView):
@@ -8,6 +8,7 @@ class Home(MethodView):
 
 class Daily(MethodView):
     def get(self):
+        # GET FROM sensor.py
         data = {
             "temp": 32,
             "f_hum": 20,
@@ -25,3 +26,11 @@ class Status(MethodView):
         data = request.json
         print(data)
         return jsonify("Receieved")
+    
+class History(MethodView):
+    # GET
+    pass
+
+class Timer(MethodView):
+    # GET, POST
+    pass
