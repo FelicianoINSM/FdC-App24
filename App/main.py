@@ -1,5 +1,6 @@
 
 from connection import Connect
+from kivy.uix.screenmanager import Screen
 
 import kivy
 kivy.require('2.3.0')
@@ -51,18 +52,21 @@ class Programar(Screen):
     start_minute_spinner = ObjectProperty(None)
     end_hour_spinner = ObjectProperty(None)
     end_minute_spinner = ObjectProperty(None)
+    start_day_spinner = ObjectProperty(None)
+  
+    
 
     def save_schedule(self):
         start_hour = self.start_hour_spinner.text
         start_minute = self.start_minute_spinner.text
         end_hour = self.end_hour_spinner.text
         end_minute = self.end_minute_spinner.text
+        start_day = self.start_day_spinner.text
+        
 
-        popup = Popup(title='Horario Guardado',
-                      content=Label(text=f'Horario de inicio: {start_hour}:{start_minute}\n'
-                                         f'Horario de fin: {end_hour}:{end_minute}'),
-                      size_hint=(None, None), size=(400, 200))
-        popup.open()
+
+
+  
 
 class Historico(Screen):
     pass

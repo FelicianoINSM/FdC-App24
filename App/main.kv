@@ -184,43 +184,76 @@ TabManager:
     start_minute_spinner: start_minute_spinner
     end_hour_spinner: end_hour_spinner
     end_minute_spinner: end_minute_spinner
+    start_day_spinner: start_day_spinner
+    
+    canvas.before:
+        Color:
+            rgba: 0.8, 0.6, 1, 1  
+        Rectangle:
+            size: self.size
+            pos: self.pos
 
     BoxLayout:
         orientation: 'vertical'
         Label:
-            text: 'Configurar Horario de Riego'
+            text: 'Configurar Riego'
         GridLayout:
             cols: 2
             Label:
                 text: 'Hora de inicio:'
             Spinner:
                 id: start_hour_spinner
-                text: '0'
+                text: 'Seleccione la hora de inicio'
                 values: [str(i) for i in range(25)]
+                background_color: 0.6, 0.2, 0.8, 1 
             Label:
                 text: 'Minuto de inicio:'
             Spinner:
                 id: start_minute_spinner
-                text: '0'
+                text: 'Seleccione el minuto de inicio'
+                background_color: 0.6, 0.2, 0.8, 1 
                 values: [str(i) for i in range(60)]
             Label:
                 text: 'Hora de fin:'
             Spinner:
                 id: end_hour_spinner
-                text: '0'
+                text: 'Seleccione una hora de fin'
+                background_color: 0.6, 0.2, 0.8, 1 
                 values: [str(i) for i in range(25)]
             Label:
                 text: 'Minuto de fin:'
             Spinner:
                 id: end_minute_spinner
-                text: '0'
+                text: 'Seleccione un minuto de fin'
+                background_color: 0.6, 0.2, 0.8, 1 
                 values: [str(i) for i in range(60)]
-        Button:
-            text: 'Guardar'
-            on_release: root.save_schedule()
-        Button:
-            text: "Volver"
-            on_release: root.manager.current = "menu"
+            Label:
+                text: 'Seleccione un dia'
+            Spinner:
+                id: start_day_spinner
+                text: 'Selecciones un dia'
+                background_color: 0.6, 0.2, 0.8, 1 
+                values:  ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"]
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: '80dp'  
+            Button:
+                text: 'Guardar'
+                size_hint_y: None
+                height: '40dp'  
+                background_color: 0.6, 0.2, 0.8, 1 
+                on_release: root.save_schedule()
+
+            Button:
+                text: "Volver"
+                size_hint_y: None
+                height: '40dp'  
+                background_color: 0.6, 0.2, 0.8, 1 
+                on_release: root.manager.current = "menu"
+
+    
 
 
 <Historico>:
