@@ -1,5 +1,5 @@
 from flask import Flask
-from routes import Home
+from routes import Home, Admin
 
 class Listener:
     def __init__(self):
@@ -7,6 +7,7 @@ class Listener:
 
     def rules(self):
         self.app.add_url_rule('/', view_func=Home.as_view('home'))
+        self.app.add_url_rule('/admin', view_func=Admin.as_view('admin'))
     
     def run(self):
         self.rules()
