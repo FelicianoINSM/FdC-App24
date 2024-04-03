@@ -33,6 +33,10 @@ class History(MethodView):
         data = DB().get_all()
         return jsonify(data)
 
-class Timer(MethodView):
-    # GET, POST
-    pass
+class Time(MethodView):
+    def get():
+        return jsonify({"days":["Lunes", "Martes", "Sabado"], "start":"14:30", "end":"16:30"})
+    def post():
+        data = request.json
+        print(data)
+        return jsonify({"message":"Programación guardada correcctamente", "RC":200})
