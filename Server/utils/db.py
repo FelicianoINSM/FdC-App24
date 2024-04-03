@@ -38,5 +38,4 @@ class DB:
 
 if __name__ == "__main__":
     DB().create_tbls()
-    print(DB().get_all())
     

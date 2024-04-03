@@ -1,6 +1,7 @@
 from flask.views import MethodView
 from flask import request, jsonify, render_template
 from datetime import datetime
+from utils.db import DB
 
 class Home(MethodView):
     def get(self):
@@ -28,8 +29,9 @@ class Status(MethodView):
         return jsonify("Receieved")
     
 class History(MethodView):
-    # GET
-    pass
+    def get(self):
+        data = DB().get_all()
+        return jsonify(data)
 
 class Timer(MethodView):
     # GET, POST
