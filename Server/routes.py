@@ -9,7 +9,6 @@ class Home(MethodView):
 
 class Daily(MethodView):
     def get(self):
-        # GET FROM sensor.py
         data = {
             "temp": 32,
             "f_hum": 20,
@@ -34,9 +33,10 @@ class History(MethodView):
         return jsonify(data)
 
 class Time(MethodView):
-    def get():
+    def get(self):
         return jsonify({"days":["Lunes", "Martes", "Sabado"], "start":"14:30", "end":"16:30"})
-    def post():
+    def post(self):
         data = request.json
         print(data)
-        return jsonify({"message":"Programación guardada correcctamente", "RC":200})
+        return jsonify({"message":"Programación modificada con éxito"})
+    
