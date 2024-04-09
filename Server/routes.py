@@ -2,6 +2,7 @@ from flask.views import MethodView
 from flask import request, jsonify, render_template
 from datetime import datetime
 from utils.db import DB
+from utils.sensor import ESP32
 
 class Home(MethodView):
     def get(self):
@@ -9,12 +10,11 @@ class Home(MethodView):
 
 class Daily(MethodView):
     def get(self):
+        env_data = ESP32("ESP32 IP ADDRESS").info()
         data = {
-            "temp": 32,
-            "f_hum": 20,
-            "e_hum": 45,
             "last": datetime.now()
         }
+        data.update(env_data)
         return jsonify(data)
     
 class Status(MethodView):
