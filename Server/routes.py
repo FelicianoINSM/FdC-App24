@@ -13,7 +13,7 @@ class Daily(MethodView):
             "temp": 32,
             "f_hum": 20,
             "e_hum": 45,
-            "last": datetime.now().strftime("%d,%m,%Y")
+            "last": datetime.now().strftime("%d/%m/%Y %H:%M")
         }
         return jsonify(data)
     
