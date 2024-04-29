@@ -16,6 +16,15 @@ class Home(Screen):
 
 class Menu(Screen):
     pass
+
+class Horario(Screen):
+    pass
+
+class Historial(Screen):
+    pass
+
+class Configuracion(Screen):
+    pass
         
 class TabManager(ScreenManager):
     pass

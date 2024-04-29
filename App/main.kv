@@ -3,6 +3,9 @@
 TabManager:
     Home:
     Menu:
+    Horario:
+    Historial:
+    Configuracion:
 
 
 <TextLabel@Label>:
@@ -16,9 +19,31 @@ TabManager:
     name: "home"
 
     AnchorLayout:
-        anchor_x: 'center'
+        anchor_x: 'right'
         anchor_y: 'top'
-        padding: 30
+        padding: '1dp'
+
+        Button:
+            background_color: 0.21, 0.21, 0.21, 0
+            always_release: True
+
+            on_press:
+                burger_image.source = 'images/menu_pressed.png'
+
+            on_release:
+                burger_image.source = 'images/menu.png'
+                root.manager.transition.direction = "left"
+                app.root.current = "menu"
+
+            Image:
+                id: burger_image
+                source: 'images/menu.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+    GridLayout:
+        cols: 1
+        padding: [0, '100dp', 0, 0]
 
         canvas.before:
             Color:
@@ -30,12 +55,12 @@ TabManager:
         GridLayout:
             cols: 1
             size_hint: (1, 0.2)
-            row_default_height: '50dp'
+            row_default_height: '40dp'
             row_force_default: True
 
             TextLabel:
                 text: "Sistema de Riego"
-                font_size: 68
+                font_size: 50
                 bold: True
             TextLabel:
                 text: "INSM 2024"
@@ -46,8 +71,6 @@ TabManager:
         anchor_x: 'center'
         anchor_y: 'center'
 
-
-
         BoxLayout:
             orientation: 'vertical'
             spacing: '30dp'
@@ -57,8 +80,6 @@ TabManager:
                 text: "ASPERSORES"
                 font_size: 55
                 bold: True
-            Switch:
-                id: aspersores
 
             TextLabel:
                 text: "Temperatura"
@@ -95,7 +116,7 @@ TabManager:
                                    
     AnchorLayout:
         anchor_x: 'right'
-        anchor_y: 'bottom'
+        anchor_y: 'top'
         padding: '30dp'
 
         Button:
@@ -108,18 +129,15 @@ TabManager:
 
             on_release:
                 burger_image.source = 'images/menu.png'
-                app.root.current = "menu"
                 root.manager.transition.direction = "left"
+                app.root.current = "menu"
 
             Image:
                 id: burger_image
                 source: 'images/menu.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-
-            
-            
-
+                   
 <Menu>:
     name: "menu"
     AnchorLayout:
@@ -142,14 +160,23 @@ TabManager:
                 text: "Programar\nHORARIO de riego"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release:
+                    root.manager.transition.direction = "left"
+                    app.root.current = "time"
             Button:
                 text: "Ver\nHISTORICO"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release:
+                    root.manager.transition.direction = "left"
+                    app.root.current = "hist"
             Button:
                 text: "Configuración\nde la APP"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                on_release:
+                    root.manager.transition.direction = "left"
+                    app.root.current = "config"
                 
 
     AnchorLayout:
@@ -178,3 +205,32 @@ TabManager:
 
                 
 
+<Horario>:
+    name: "time"
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text:"Volver"
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "menu"
+
+<Historial>:
+    name: "hist"
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text:"Volver"
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "menu"
+
+<Configuracion>:
+    name: "config"
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text:"Volver"
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "menu"
