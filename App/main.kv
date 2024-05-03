@@ -4,6 +4,7 @@ TabManager:
     Home:
     Menu:
     Historial:
+    Vermas:
 
 
 <TextLabel@Label>:
@@ -176,7 +177,7 @@ TabManager:
             on_release:
                 return_image.source = 'images/return.png'
                 app.root.current = "home"
-                root.manager.transition.direction = "right"
+                root.manager.transition.direction = "left"
 
             Image:
                 id: return_image
@@ -189,57 +190,287 @@ TabManager:
     AnchorLayout:
         anchor_x: 'center'
         anchor_y: 'top'
-        padding: 30
+        padding: 0
 
         canvas.before:
             Color:
-                rgba: 0.21, 0.21, 0.21, 1  
+                rgba: 0.73, 0.6, 0.95, 0.8
             Rectangle:
                 pos: self.pos
                 size: self.size
     
         GridLayout:
-            cols: 3
+            cols: 6
             size_hint: (1, 0.2)
             row_default_height: '100dp'
             row_force_default: True
             canvas.before:
                 Color:
-                    rgba: 0, 0, 0, 1  # Color gris oscuro
+                    rgba: 0.19, 0, 0.294, 0.6  # Color gris oscuro
                 Rectangle:
                     pos: self.pos
                     size: self.size
             TextLabel:
                 text: "  Día"
-                font_size: 34
+                font_size: 14
                 bold: True
             TextLabel:
                 text: "Fecha"
-                font_size: 34
+                font_size: 14
                 bold: True
             TextLabel:
-                text: "Hora"
-                font_size: 34
+                text: "Inicio"
+                font_size: 14
+                bold: True
+            
+            TextLabel:
+                text: "Final"
+                font_size: 14
+                bold: True
+            
+            TextLabel:
+                text: "Litros"
+                font_size: 14
+                bold: True
+
+            TextLabel:
+                text: "Humedad"
+                font_size: 14
                 bold: True
 
     AnchorLayout:
         anchor_x: 'center'
+        anchor_y: 'center'
+        padding: 40
+
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0.8
+            Rectangle:
+                pos: (0, 80)
+                size: (600, 400)
+
+    AnchorLayout:
+        anchor_x: 'center'
         anchor_y: 'top'
-        padding: 100
+        padding: [0, 120]
             
         GridLayout:
-            id: hi
-            cols: 3
-            size_hint: (1, 0.2) 
-            height: self.minimum_height 
-            row_default_height: '60dp' 
-            row_force_default: True
-            padding: "30dp"
-            spacing: "20dp"
 
-            ScrollView:
-                GridLayout:
-                    cols: 3
-                    bold: True
-                    size_hint_y: None
-                    height: self.minimum_height
+            id: hi
+            cols: 6
+            size_hint: (1, 0) 
+            height: self.minimum_height 
+            row_default_height: '65' 
+            row_force_default: True
+            spacing: [0, 0]
+
+            canvas.before:
+                Color:
+                    rgba: 0.73, 0.6, 0.95, 0.8
+                Line:
+                    points: [100, 80, 100, 480]
+                Line:
+                    points: [200, 80, 200, 480]
+                Line:
+                    points: [300, 80, 300, 480]
+                Line:
+                    points: [400, 80, 400, 480]
+                Line:
+                    points: [500, 80, 500, 480]
+
+            
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'  # Ajusta el anclaje para que los botones estén en la parte inferior
+        padding: 17
+
+        Button:
+
+            size_hint: 0.2, 0.1
+
+            background_color: 0.21, 0.21, 0.21, 0
+
+
+            on_press:
+
+                verm_image.source = 'images/verm_pressed.png'
+
+            on_release:
+
+                verm_image.source = 'images/verm.png'
+
+                app.root.current = "ver"
+                root.manager.transition.direction = "left"
+
+            Image:
+
+                id: verm_image
+
+                source: 'images/verm.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+    AnchorLayout:
+
+        anchor_x: 'left'
+        anchor_y: 'bottom'  # Ajusta el anclaje para que los botones estén en la parte inferior
+        padding: 17
+
+        Button:
+            size_hint: 0.2, 0.1
+            background_color: 0.21, 0.21, 0.21, 0
+
+
+            on_press:
+
+                returnv_image.source = 'images/returnv_pressed.png'
+
+            on_release:
+
+                returnv_image.source = 'images/returnv.png'
+
+                app.root.current = "menu"
+
+                root.manager.transition.direction = "right"
+
+            Image:
+
+                id: returnv_image
+                source: 'images/returnv.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+<Vermas>:
+    name: "ver"
+
+    AnchorLayout:
+
+        anchor_x: 'center'
+        anchor_y: 'top'
+        padding: 0
+
+        canvas.before:
+
+            Color:
+                rgba: 0.73, 0.6, 0.95, 0.8
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    
+        GridLayout:
+            cols: 6
+            size_hint: (1, 0.2)
+            row_default_height: '100dp'
+            row_force_default: True
+            canvas.before:
+
+                Color:
+
+                    rgba: 0.19, 0, 0.294, 0.6  # Color gris oscuro
+
+                Rectangle:
+
+                    pos: self.pos
+                    size: self.size
+
+            TextLabel:
+                text: "  Día"
+                font_size: 14
+                bold: True
+            TextLabel:
+                text: "Fecha"
+                font_size: 14
+                bold: True
+            TextLabel:
+                text: "Inicio"
+                font_size: 14
+                bold: True
+            
+            TextLabel:
+                text: "Final"
+                font_size: 14
+                bold: True
+            
+            TextLabel:
+                text: "Litros"
+                font_size: 14
+                bold: True
+
+            TextLabel:
+                text: "Humedad"
+                font_size: 14
+                bold: True
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        padding: 40
+
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0.8
+            Rectangle:
+                pos: (0, 100)
+                size: (600, 380)
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        padding: [20, 140]
+            
+        ScrollView:
+        
+            GridLayout:
+            
+                id: hi
+                cols: 6
+                spacing: [50, 0]
+                size_hint_y: None  # Indicamos que la altura no es automática
+                height: self.minimum_height  # Ajustamos la altura al mínimo necesario
+                row_default_height: '75' 
+                row_force_default: True
+
+                canvas.before:
+                    Color:
+                        rgba: 0.73, 0.6, 0.95, 0.8
+                    Line:
+                        points: [70, self.y, 70, self.y + self.height]
+                    Line:
+                        points: [184, self.y, 184, self.y + self.height]
+                    Line:
+                        points: [288, self.y, 288, self.y + self.height]
+                    Line:
+                        points: [387, self.y, 387, self.y + self.height]
+                    Line:
+                        points: [486, self.y, 486, self.y + self.height]
+                
+    AnchorLayout:
+
+        anchor_x: 'center'
+        anchor_y: 'bottom'  # Ajusta el anclaje para que los botones estén en la parte inferior
+        padding: 17
+
+        Button:
+            size_hint: 0.2, 0.1
+            background_color: 0.21, 0.21, 0.21, 0
+
+
+            on_press:
+
+                returnv_image.source = 'images/returnv_pressed.png'
+
+            on_release:
+
+                returnv_image.source = 'images/returnv.png'
+
+                app.root.current = "historial"
+
+                root.manager.transition.direction = "right"
+
+            Image:
+
+                id: returnv_image
+                source: 'images/returnv.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y

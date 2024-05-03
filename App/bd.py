@@ -25,7 +25,10 @@ def configurar_base_datos():
                     id INTEGER PRIMARY KEY,
                     descripcion TEXT,
                     fecha TEXT,
-                    hora TEXT
+                    hora TEXT,
+                    final TEXT,
+                    litros TEXT,
+                    humedad del suelo TEXT
                 )
             ''')
             conn.commit()
@@ -36,12 +39,12 @@ def configurar_base_datos():
             conn.close()
 
 # Funciones para operaciones CRUD en la base de datos SQLite
-def agregar_entrada(descripcion, fecha, hora):
+def agregar_entrada(descripcion, fecha, hora, final, litros, humedad):
     conn = conectar_base_datos()
     if conn:
         try:
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO historial (descripcion, fecha, hora) VALUES (?, ?, ?)', (descripcion, fecha, hora))
+            cursor.execute('INSERT INTO historial (descripcion, fecha, hora, final, litros, humedad) VALUES (?, ?, ?, ?, ?, ?)', (descripcion, fecha, hora, final, litros, humedad))
             conn.commit()
             print("Entrada agregada correctamente")
         except sqlite3.Error as e:
@@ -70,4 +73,7 @@ fecha = datetime.now().strftime('%Y-%m-%d')
 hora = datetime.now().strftime('%H:%M:%S')
 nombre_dia = obtener_nombre_dia(datetime.now())
 descripcion = nombre_dia
-agregar_entrada(descripcion, fecha, hora)
+final = "23:00"
+litros = "12 l"
+humedad = "32%"
+agregar_entrada(descripcion, fecha, hora, final, litros, humedad)
