@@ -14,6 +14,11 @@ TabManager:
 
 <Home>:
     name: "home"
+    temp: temp
+    env_humidity: env_humidity
+    humidity: humidity
+    last_time: last_time
+
 
     AnchorLayout:
         anchor_x: 'center'
@@ -22,7 +27,7 @@ TabManager:
 
         canvas.before:
             Color:
-                rgba: 0.21, 0.21, 0.21, 1  
+                rgba: 0.8667, 0.8627, 1.0, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -35,11 +40,13 @@ TabManager:
 
             TextLabel:
                 text: "Sistema de Riego"
-                font_size: 68
+                font_size: 40
                 bold: True
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 text: "INSM 2024"
                 font_size: 40
+                color:0.2941, 0.2275, 0.3882, 1 
             
 
     AnchorLayout:
@@ -55,51 +62,69 @@ TabManager:
 
             TextLabel:
                 text: "ASPERSORES"
-                font_size: 55
+                font_size: 30
                 bold: True
-            Switch:
-                id: aspersores
+                color:0.2941, 0.2275, 0.3882, 1 
+            
+            
+            Button:      
+                id: switch_button
+                text: "Encender"
+                size_hint: (1, 9)
+                on_release: root.switch_button_pressed()
+                background_normal: ''
+                background_color:  0.7725, 0.7529, 0.8980, 1
+                color: 0,0,0,1
+                font_size: self.height / 3
 
             TextLabel:
                 text: "Temperatura"
-                font_size: 40
+                font_size: 20
                 bold: True
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
-                id: temp
+                id: temp 
                 text: "34°"
-                font_size: 44
+                font_size: 24
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 text: "Humedad ambiente"
-                font_size: 40
+                font_size: 20
                 bold: True
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 id: env_humidity
                 text: "45%"
-                font_size: 44
+                font_size: 24
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 text: "Humedad del suelo"
-                font_size: 40
+                font_size: 20
                 bold: True
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 id: humidity
                 text: "97%"
-                font_size: 44
+                font_size: 24
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 text: "Ultimo riego"
-                font_size: 40
+                font_size: 20
                 bold: True
+                color:0.2941, 0.2275, 0.3882, 1 
             TextLabel:
                 id: last_time
                 text: "22:30"
-                font_size: 44
+                font_size: 24
+                color:0.2941, 0.2275, 0.3882, 1 
                                    
     AnchorLayout:
         anchor_x: 'right'
-        anchor_y: 'bottom'
+        anchor_y: 'top'
         padding: '30dp'
 
         Button:
-            size_hint: 0.2, 0.1
+            size_hint: 0.1, 0.1
             background_color: 0.21, 0.21, 0.21, 0
             always_release: True
 
@@ -128,7 +153,7 @@ TabManager:
         
         canvas.before:
             Color:
-                rgba: 0.21, 0.21, 0.21, 1  
+                rgba: 0.8667, 0.8627, 1.0, 1 
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -142,19 +167,22 @@ TabManager:
                 text: "Programar\nHORARIO de riego"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                background_color:  0.7725, 0.7529, 0.8980, 1
             Button:
                 text: "Ver\nHISTORICO"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                background_color:  0.7725, 0.7529, 0.8980, 1
             Button:
                 text: "Configuración\nde la APP"
                 text_size: self.width - dp(30), None
                 font_size: '24dp'
+                background_color:  0.7725, 0.7529, 0.8980, 1
                 
 
     AnchorLayout:
         anchor_x: 'left'
-        anchor_y: 'bottom'
+        anchor_y: 'top'
         padding: '30dp'
 
         Button:
