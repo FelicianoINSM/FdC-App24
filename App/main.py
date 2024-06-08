@@ -9,11 +9,14 @@ Config.set('graphics', 'width', '600')
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.clock import Clock
-
-
-
+import requests 
+from connection import Connect
+import requests
+from datetime import *
+import locale
 class Home(Screen):
     pass
 
@@ -28,29 +31,26 @@ class Historial(Screen):
         Clock.schedule_once(self.cargar_historial)
 
     def cargar_historial(self, dt):
-        # Conectar a la base de datos
-        conn = sqlite3.connect("historial.db")
-        cursor = conn.cursor()
-        
-        # Obtener las últimas 6 entradas del historial
-        cursor.execute("SELECT * FROM historial ORDER BY id DESC LIMIT 6")
-        historial = cursor.fetchall()
-        
-        conn.close()
-        
-        # Limpiar el GridLayout antes de agregar nuevas entradas
-        historial_grid = self.ids["hi"]
-        historial_grid.clear_widgets()
-        
-        # Agregar las entradas del historial al GridLayout
-        for entrada in historial:
-            descripcion, fecha, hora, final, litros, humedad = entrada[1], entrada[2], entrada[3], entrada[4], entrada[5], entrada[6]
-            historial_grid.add_widget(Label(text=descripcion, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=fecha, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=hora, font_size=12, color=(0.53, 0, 0.95, 0.8)))  
-            historial_grid.add_widget(Label(text=final, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=litros, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=humedad, font_size=12, color=(0.53, 0, 0.95, 0.8)))
+        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+        response = requests.get("http://fdcyt24.ddns.net:5000/v1/history")
+        data = response.json()[:5]  # Obtener las primeras seis entradas
+        grid = self.ids.hi
+        grid.clear_widgets()
+
+        # Procesar cada entrada y agregar los datos a las columnas
+        for entry in data:
+            fecha = entry[0]
+            nombre_dia = self.obtener_nombre_dia(fecha).capitalize()
+            grid.add_widget(Label(text=nombre_dia, font_size=12, color=(0.53, 0, 0.95, 0.8)))  # Agregar nombre del día
+            
+            # Agregar los otros elementos de la entrada a las columnas restantes
+            for item in entry[0:]:
+                grid.add_widget(Label(text=str(item), font_size=12, color=(0.53, 0, 0.95, 0.8)))
+
+    def obtener_nombre_dia(self, fecha_str):
+        fecha_obj = datetime.strptime(fecha_str, "%Y-%m-%d")
+        nombre_dia = fecha_obj.strftime("%A")
+        return nombre_dia
 
 class Home(Screen):
     pass
@@ -61,29 +61,26 @@ class Vermas(Screen):
         Clock.schedule_once(self.cargar_historial)
 
     def cargar_historial(self, dt):
-        # Conectar a la base de datos
-        conn = sqlite3.connect("historial.db")
-        cursor = conn.cursor()
-        
-        # Obtener las últimas 6 entradas del historial
-        cursor.execute("SELECT * FROM historial ORDER BY id DESC")
-        historial = cursor.fetchall()
-        
-        conn.close()
-        
-        # Limpiar el GridLayout antes de agregar nuevas entradas
-        historial_grid = self.ids["hi"]
-        historial_grid.clear_widgets()
-        
-        # Agregar las entradas del historial al GridLayout
-        for entrada in historial:
-            descripcion, fecha, hora, final, litros, humedad = entrada[1], entrada[2], entrada[3], entrada[4], entrada[5], entrada[6]
-            historial_grid.add_widget(Label(text=descripcion, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=fecha, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=hora, font_size=12, color=(0.53, 0, 0.95, 0.8)))  
-            historial_grid.add_widget(Label(text=final, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=litros, font_size=12, color=(0.53, 0, 0.95, 0.8)))
-            historial_grid.add_widget(Label(text=humedad, font_size=12, color=(0.53, 0, 0.95, 0.8)))
+        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+        response = requests.get("http://fdcyt24.ddns.net:5000/v1/history")
+        data = response.json()  # Obtener las primeras seis entradas
+        grid = self.ids.hi
+        grid.clear_widgets()
+
+        # Procesar cada entrada y agregar los datos a las columnas
+        for entry in data:
+            fecha = entry[0]
+            nombre_dia = self.obtener_nombre_dia(fecha).capitalize()
+            grid.add_widget(Label(text=nombre_dia, font_size=12, color=(0.53, 0, 0.95, 0.8)))  # Agregar nombre del día
+            
+            # Agregar los otros elementos de la entrada a las columnas restantes
+            for item in entry[0:]:
+                grid.add_widget(Label(text=str(item), font_size=12, color=(0.53, 0, 0.95, 0.8)))
+
+    def obtener_nombre_dia(self, fecha_str):
+        fecha_obj = datetime.strptime(fecha_str, "%Y-%m-%d")
+        nombre_dia = fecha_obj.strftime("%A")
+        return nombre_dia
 
 class TabManager(ScreenManager):
     pass
