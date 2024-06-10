@@ -177,7 +177,7 @@ TabManager:
                 id: return_image
                 source: 'images/return.png'
                 center_x: self.parent.center_x
-                center_y: self.parent.center_y               
+                center_y: self.parent.center_y    
 
 <Programar>:
     start_hour_spinner: start_hour_spinner
@@ -198,6 +198,7 @@ TabManager:
         Label:
             text: 'Configurar Riego'
         GridLayout:
+            id: ca
             cols: 2
             Label:
                 text: 'Hora de inicio:'
@@ -252,9 +253,6 @@ TabManager:
                 height: '40dp'  
                 background_color: 0.6, 0.2, 0.8, 1 
                 on_release: root.manager.current = "menu"
-
-    
-
 
 <Historico>:
     name: "historico"

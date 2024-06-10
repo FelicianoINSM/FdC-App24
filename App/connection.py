@@ -6,8 +6,7 @@ class Connect():
         self.url = url
     def ping():
         try:
-            url = "http://127.0.0.1:8080/"
-            response = requests.get(url)
-            print(response.text)
+            url = requests.get("http://fdcyt24.ddns.net:5000/v1/history")
+            data = url.json()[:0]  # Obtener las primeras seis entradas"
         except Exception as e:
             print(f'Connection failed: {e}')
