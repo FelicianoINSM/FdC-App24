@@ -184,75 +184,206 @@ TabManager:
     start_minute_spinner: start_minute_spinner
     end_hour_spinner: end_hour_spinner
     end_minute_spinner: end_minute_spinner
-    start_day_spinner: start_day_spinner
-    
-    canvas.before:
-        Color:
-            rgba: 0.8, 0.6, 1, 1  
-        Rectangle:
-            size: self.size
-            pos: self.pos
+    day_checkboxes: day_checkboxes
 
     BoxLayout:
         orientation: 'vertical'
+        padding: '10dp'
+        spacing: '10dp'
+        canvas.before:
+            Color:
+                rgba: 0.73, 0.6, 0.95, 1  # Color de fondo general
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'top'
+            size_hint_y: None
+            height: '60dp'
+
+            canvas.before:
+                Color:
+                    rgba: 0.5, 0.3, 0.6, 1  # Color púrpura oscuro para el título
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: "Configurar Riego"
+                color: 1, 1, 1, 1
+                bold: True
+                font_size: '20sp'
+
         Label:
-            text: 'Configurar Riego'
-        GridLayout:
-            id: ca
-            cols: 2
-            Label:
-                text: 'Hora de inicio:'
-            Spinner:
-                id: start_hour_spinner
-                text: 'Seleccione la hora de inicio'
-                values: [str(i) for i in range(25)]
-                background_color: 0.6, 0.2, 0.8, 1 
-            Label:
-                text: 'Minuto de inicio:'
-            Spinner:
-                id: start_minute_spinner
-                text: 'Seleccione el minuto de inicio'
-                background_color: 0.6, 0.2, 0.8, 1 
-                values: [str(i) for i in range(60)]
-            Label:
-                text: 'Hora de fin:'
-            Spinner:
-                id: end_hour_spinner
-                text: 'Seleccione una hora de fin'
-                background_color: 0.6, 0.2, 0.8, 1 
-                values: [str(i) for i in range(25)]
-            Label:
-                text: 'Minuto de fin:'
-            Spinner:
-                id: end_minute_spinner
-                text: 'Seleccione un minuto de fin'
-                background_color: 0.6, 0.2, 0.8, 1 
-                values: [str(i) for i in range(60)]
-            Label:
-                text: 'Seleccione un dia'
-            Spinner:
-                id: start_day_spinner
-                text: 'Selecciones un dia'
-                background_color: 0.6, 0.2, 0.8, 1 
-                values:  ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"]
+            text: 'Hora de Inicio'
+            size_hint_y: None
+            height: '30dp'
+            color: 0.5, 0.1, 0.5, 1
+            bold: True
+            font_size: '18sp'
 
         BoxLayout:
-            orientation: 'vertical'
+            orientation: 'horizontal'
+            spacing: '10dp'
             size_hint_y: None
-            height: '80dp'  
+            height: '40dp'
+            Spinner:
+                id: start_hour_spinner
+                text: '00'
+                values: [str(i).zfill(2) for i in range(24)]
+                background_color: 0.8, 0.7, 1, 1
+            Spinner:
+                id: start_minute_spinner
+                text: '00'
+                values: [str(i).zfill(2) for i in range(0, 60, 5)]
+                background_color: 0.8, 0.7, 1, 1
+
+        Label:
+            text: 'Hora de Fin'
+            size_hint_y: None
+            height: '30dp'
+            color: 0.5, 0.1, 0.5, 1
+            bold: True
+            font_size: '18sp'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: '10dp'
+            size_hint_y: None
+            height: '40dp'
+            Spinner:
+                id: end_hour_spinner
+                text: '00'
+                values: [str(i).zfill(2) for i in range(24)]
+                background_color: 0.8, 0.7, 1, 1
+            Spinner:
+                id: end_minute_spinner
+                text: '00'
+                values: [str(i).zfill(2) for i in range(0, 60, 5)]
+                background_color: 0.8, 0.7, 1, 1
+
+        Label:
+            text: 'Seleccione días de la semana'
+            size_hint_y: None
+            height: '30dp'
+            color: 0.5, 0.1, 0.5, 1
+            bold: True
+            font_size: '18sp'
+
+        GridLayout:
+            id: day_checkboxes
+            cols: 4
+            spacing: '10dp'
+            size_hint_y: None
+            height: '80dp'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Lunes'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_monday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Martes'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_tuesday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Miércoles'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_wednesday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Jueves'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_thursday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Viernes'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_friday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Sábado'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_saturday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: None
+                width: '120dp'
+                Label:
+                    text: 'Domingo'
+                    size_hint_x: None
+                    width: '60dp'
+                CheckBox:
+                    id: day_sunday
+                    color: 0.2, 0.2, 0.2, 1
+                    background_color: 0.2, 0.2, 0.2, 1
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: '20dp'
+            size_hint_y: None
+            height: '50dp'
+            padding: '10dp'
+
             Button:
                 text: 'Guardar'
-                size_hint_y: None
-                height: '40dp'  
-                background_color: 0.6, 0.2, 0.8, 1 
+                size_hint: (0.5, 1)
+                background_color: 0.5, 0.3, 0.6, 1
+                color: 1, 1, 1, 1
                 on_release: root.save_schedule()
 
             Button:
                 text: "Volver"
-                size_hint_y: None
-                height: '40dp'  
-                background_color: 0.6, 0.2, 0.8, 1 
+                size_hint: (0.5, 1)
+                background_color: 0.5, 0.3, 0.6, 1
+                color: 1, 1, 1, 1
                 on_release: root.manager.current = "menu"
+
 
 <Historico>:
     name: "historico"

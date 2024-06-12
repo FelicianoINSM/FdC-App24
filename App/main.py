@@ -25,6 +25,8 @@ from kivy.clock import Clock
 from kivy.storage.jsonstore import JsonStore
 import os 
 import sqlite3 
+from kivy.uix.checkbox import CheckBox
+
 
 class MySwitch(Switch):
     def __init__(self, **kwargs):
@@ -53,7 +55,14 @@ class Menu(Screen):
         self.manager.current = "configuracion"
         self.manager.transition.direction = "left"
 
+
 class Programar(Screen):
+    start_hour_spinner = ObjectProperty(None)
+    start_minute_spinner = ObjectProperty(None)
+    end_hour_spinner = ObjectProperty(None)
+    end_minute_spinner = ObjectProperty(None)
+    day_checkboxes = ObjectProperty(None)
+
     def on_enter(self):
         self.store = JsonStore(os.path.join(App.get_running_app().user_data_dir, 'schedule.json'))
         self.load_schedule()
@@ -61,21 +70,51 @@ class Programar(Screen):
     def load_schedule(self):
         if self.store.exists('schedule'):
             data = self.store.get('schedule')
-            self.ids.start_hour_spinner.text = data.get("start_hour", "Seleccione la hora de inicio")
-            self.ids.start_minute_spinner.text = data.get("start_minute", "Seleccione el minuto de inicio")
-            self.ids.end_hour_spinner.text = data.get("end_hour", "Seleccione una hora de fin")
-            self.ids.end_minute_spinner.text = data.get("end_minute", "Seleccione un minuto de fin")
-            self.ids.start_day_spinner.text = data.get("day", "Selecciones un dia")
+            self.ids.start_hour_spinner.text = data.get("start_hour", "00")
+            self.ids.start_minute_spinner.text = data.get("start_minute", "00")
+            self.ids.end_hour_spinner.text = data.get("end_hour", "00")
+            self.ids.end_minute_spinner.text = data.get("end_minute", "00")
+            days = data.get("days", [])
+            for day in days:
+                if day == "Lunes":
+                    self.ids.day_monday.active = True
+                elif day == "Martes":
+                    self.ids.day_tuesday.active = True
+                elif day == "Miércoles":
+                    self.ids.day_wednesday.active = True
+                elif day == "Jueves":
+                    self.ids.day_thursday.active = True
+                elif day == "Viernes":
+                    self.ids.day_friday.active = True
+                elif day == "Sábado":
+                    self.ids.day_saturday.active = True
+                elif day == "Domingo":
+                    self.ids.day_sunday.active = True
         else:
             try:
                 response = requests.get("http://192.168.120.99:5000/v1/time")
                 if response.status_code == 200:
                     data = response.json()
-                    self.ids.start_hour_spinner.text = data.get("start_hour", "Seleccione la hora de inicio")
-                    self.ids.start_minute_spinner.text = data.get("start_minute", "Seleccione el minuto de inicio")
-                    self.ids.end_hour_spinner.text = data.get("end_hour", "Seleccione una hora de fin")
-                    self.ids.end_minute_spinner.text = data.get("end_minute", "Seleccione un minuto de fin")
-                    self.ids.start_day_spinner.text = data.get("day", "Selecciones un dia")
+                    self.ids.start_hour_spinner.text = data.get("start_hour", "00")
+                    self.ids.start_minute_spinner.text = data.get("start_minute", "00")
+                    self.ids.end_hour_spinner.text = data.get("end_hour", "00")
+                    self.ids.end_minute_spinner.text = data.get("end_minute", "00")
+                    days = data.get("days", [])
+                    for day in days:
+                        if day == "Lunes":
+                            self.ids.day_monday.active = True
+                        elif day == "Martes":
+                            self.ids.day_tuesday.active = True
+                        elif day == "Miércoles":
+                            self.ids.day_wednesday.active = True
+                        elif day == "Jueves":
+                            self.ids.day_thursday.active = True
+                        elif day == "Viernes":
+                            self.ids.day_friday.active = True
+                        elif day == "Sábado":
+                            self.ids.day_saturday.active = True
+                        elif day == "Domingo":
+                            self.ids.day_sunday.active = True
                 else:
                     print("Error al obtener la configuración del servidor")
             except Exception as e:
@@ -86,14 +125,29 @@ class Programar(Screen):
         start_minute = self.ids.start_minute_spinner.text
         end_hour = self.ids.end_hour_spinner.text
         end_minute = self.ids.end_minute_spinner.text
-        day = self.ids.start_day_spinner.text
+        selected_days = []
+
+        if self.ids.day_monday.active:
+            selected_days.append("Lunes")
+        if self.ids.day_tuesday.active:
+            selected_days.append("Martes")
+        if self.ids.day_wednesday.active:
+            selected_days.append("Miércoles")
+        if self.ids.day_thursday.active:
+            selected_days.append("Jueves")
+        if self.ids.day_friday.active:
+            selected_days.append("Viernes")
+        if self.ids.day_saturday.active:
+            selected_days.append("Sábado")
+        if self.ids.day_sunday.active:
+            selected_days.append("Domingo")
 
         data = {
             "start_hour": start_hour,
             "start_minute": start_minute,
             "end_hour": end_hour,
             "end_minute": end_minute,
-            "day": day
+            "days": selected_days
         }
 
         self.store.put('schedule', **data)
@@ -108,7 +162,6 @@ class Programar(Screen):
             print(f"Error al conectar con el servidor: {e}")
 
 
-  
 
 class Historico(Screen):
     pass
