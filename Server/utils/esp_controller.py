@@ -2,8 +2,8 @@ import socket
 
 class Controller:
     def __init__(self) -> None:
-        self.esp_ip = '0.0.0.0'
-        self.esp_port = 0
+        self.esp_ip = '192.168.108.11'
+        self.esp_port = 80
 
     def send_data(self, data):
         try:
@@ -12,11 +12,14 @@ class Controller:
 
             sock.sendall(data.encode('utf-8'))
 
-            response = sock.recv(1024)
-            return response.decode('utf-8')
+            if data in ['1', '0']:
+                sock.close()
+            elif data in ['2']:
+                response = sock.recv(1024)
+                sock.close()
+                return response.decode('utf-8')
 
         except Exception as e:
             print("Error:", e)
 
-        finally:
-            sock.close()
+

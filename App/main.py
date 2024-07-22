@@ -12,7 +12,12 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
 
 class Home(Screen):
-    pass
+    def on_switch_active(self, switch, value):
+        if value:
+            Connect().bomb_test(1)
+        else:
+            Connect().bomb_test(0)
+
 
 class Menu(Screen):
     pass

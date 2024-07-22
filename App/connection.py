@@ -2,12 +2,11 @@ import requests
 
 
 class Connect():
-    def __init__(self, url) -> None:
-        self.url = url
-    def ping():
-        try:
-            url = "http://127.0.0.1:8080/"
-            response = requests.get(url)
-            print(response.text)
-        except Exception as e:
-            print(f'Connection failed: {e}')
+    def __init__(self) -> None:
+        self.url = "http://127.0.0.1:5000/v1/bomb"
+
+    def bomb_test(self, state):
+        data = {
+            'value': f'{state}'
+        }
+        response = requests.post(self.url, json=data)

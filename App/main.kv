@@ -59,6 +59,8 @@ TabManager:
                 bold: True
             Switch:
                 id: aspersores
+                on_active: root.on_switch_active(*args)
+
 
             TextLabel:
                 text: "Temperatura"

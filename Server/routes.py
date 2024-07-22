@@ -2,6 +2,7 @@ from flask.views import MethodView
 from flask import request, jsonify, render_template
 from datetime import datetime
 from utils.db import DB
+from utils.esp_controller import Controller
 
 class Home(MethodView):
     def get(self):
@@ -39,4 +40,11 @@ class Time(MethodView):
         data = request.json
         print(data)
         return jsonify({"message":"Programación modificada con éxito"})
+    
+class Bomb(MethodView):
+    def post(self):
+        data = request.json
+        Controller().send_data(data['value'])
+        return jsonify('Ok')
+
     
